@@ -37,10 +37,15 @@ app.get("/tasks/:userId", async (req, res) => {
 
 // Add a task
 app.post('/tasks', async (req, res) => {
-  const task = new Task(req.body);
-  await task.save();
-  res.json(task);
-});
+    try {
+      const task = new Task(req.body);
+      await task.save();
+      res.json(task);
+    } catch (err) {
+      res.status(500).json({ error: "Failed to save task" });
+    }
+  });
+  
 
 // Start server
 const PORT = process.env.PORT || 5000;
