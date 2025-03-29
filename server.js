@@ -30,6 +30,18 @@ app.get('/tasks/:userId', async (req, res) => {
   res.json(tasks);
 });
 
+
+// Get tasks for a specific user
+app.get("/tasks/:userId", async (req, res) => {
+    try {
+      const tasks = await Task.find({ userId: req.params.userId });
+      res.json(tasks);
+    } catch (err) {
+      res.status(500).json({ error: "Failed to fetch tasks" });
+    }
+  });
+  
+
 // Add a task
 app.post('/tasks', async (req, res) => {
   const task = new Task(req.body);
@@ -40,3 +52,9 @@ app.post('/tasks', async (req, res) => {
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+
+
+app.get("/", (req, res) => {
+    res.send("🎉 ToDo API is running!");
+  });
+  
