@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: todo-api
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: MONGO_URI
+        value: mongodb+srv://armanratra07:KamadoTanjiro07@todoapparman07.eyntlg6.mongodb.net/todoapp?retryWrites=true&w=majority
