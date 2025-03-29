@@ -24,13 +24,6 @@ const TaskSchema = new mongoose.Schema({
 
 const Task = mongoose.model('Task', TaskSchema);
 
-// Get tasks by userId
-app.get('/tasks/:userId', async (req, res) => {
-  const tasks = await Task.find({ userId: req.params.userId });
-  res.json(tasks);
-});
-
-
 // Get tasks for a specific user
 app.get("/tasks/:userId", async (req, res) => {
     try {
