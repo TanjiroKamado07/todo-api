@@ -40,8 +40,9 @@ app.post('/tasks', async (req, res) => {
     try {
       const task = new Task(req.body);
       await task.save();
-      res.json(task);
-    } catch (err) {
+      res.status(201).json(task);
+    } catch (error) {
+      console.error("❌ Failed to save task:", error.message);
       res.status(500).json({ error: "Failed to save task" });
     }
   });
