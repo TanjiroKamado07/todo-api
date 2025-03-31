@@ -91,6 +91,22 @@ app.get('/tasks/:userId', async (req, res) => {
   }
 });
 
+// ✅ Update task by ID
+app.put('/tasks/:id', async (req, res) => {
+  const { id } = req.params;
+  const updatedData = req.body;
+
+  try {
+    const result = await Task.findByIdAndUpdate(id, updatedData, { new: true });
+    if (!result) return res.status(404).send("Task not found");
+
+    res.json(result);
+  } catch (err) {
+    console.error("❌ Failed to update task:", err);
+    res.status(500).send("Error updating task");
+  }
+});
+
 // ✅ Root route for testing
 app.get("/", (req, res) => {
   res.send("🎉 ToDo API is running!");
