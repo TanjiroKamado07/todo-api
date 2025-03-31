@@ -115,3 +115,15 @@ app.get("/", (req, res) => {
 // ✅ Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+
+// ✅ DELETE a task by ID
+app.delete('/tasks/:id', async (req, res) => {
+  try {
+    const result = await Task.findByIdAndDelete(req.params.id);
+    if (!result) return res.status(404).send("Task not found");
+    res.send(result);
+  } catch (err) {
+    console.error("❌ Error deleting task:", err);
+    res.status(500).send("Failed to delete task");
+  }
+});
